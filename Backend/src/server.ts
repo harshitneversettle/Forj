@@ -205,3 +205,39 @@ app.post("/api/claim", async (req, res) => {
     res.json(response);
   }
 });
+
+
+
+app.post("/api/generate-certificate", async (req, res) => {
+  const { name, enrollment, position, eventName, templateUri, verifyUrl } =
+    req.body;
+  const response = await axios.get(templateUri, {
+    responseType: "arraybuffer",
+  });
+  const certificate = await PDFDocument.load(response.data);
+  const form = certificate.getForm();
+  try {
+    form.getTextField("name").setText(name);
+  } catch {}
+
+  try {
+    form.getTextField("enrollment").setText(enrollment);
+  } catch {}
+
+  try {
+    form.getTextField("eventName").setText(eventName);
+  } catch {}
+
+  try {
+    form.getTextField("position").setText(position);
+  } catch {}
+
+  try {
+    form.getTextField("verify").setText(verifyUrl);
+  } catch {}
+
+  form.flatten();
+  const pdfBytes = await certificate.save();
+  res.send(Buffer.from(pdfBytes));
+});
+
