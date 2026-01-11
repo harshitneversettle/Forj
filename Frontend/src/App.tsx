@@ -39,12 +39,24 @@ function App() {
               <div className="container mx-auto px-6 py-16">
                 <Routes>
                   <Route path="/" element={<Home />} />
-                  <Route path="/admin" element={<Admin />} />
-                  <Route path="/claim" element={<Claim />} />
-                  <Route path="/claim/:issuer/:uniqueKey" element={<Claim />} />
-                  <Route path="/verify" element={<Verify />} />
                   <Route
-                    path="/verify/:issuer/:uniqueKey/:studentEmail"
+                    path="https://forj-eight.vercel.app/admin"
+                    element={<Admin />}
+                  />
+                  <Route
+                    path="https://forj-eight.vercel.app/claim"
+                    element={<Claim />}
+                  />
+                  <Route
+                    path="https://forj-eight.vercel.app/claim/:issuer/:uniqueKey"
+                    element={<Claim />}
+                  />
+                  <Route
+                    path="https://forj-eight.vercel.app/verify"
+                    element={<Verify />}
+                  />
+                  <Route
+                    path="https://forj-eight.vercel.app/verify/:issuer/:uniqueKey/:studentEmail"
                     element={<Verify />}
                   />
                 </Routes>
