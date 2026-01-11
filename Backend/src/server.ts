@@ -8,7 +8,7 @@ import MerkleTree, { MerkleMountainRange } from "merkletreejs";
 import * as anchor from "@coral-xyz/anchor";
 import { Program, AnchorProvider, BN, web3 } from "@coral-xyz/anchor";
 import { Connection, Keypair, PublicKey, SystemProgram } from "@solana/web3.js";
-import idl from "/home/titan/Desktop/forj/Backend/src/idl.json";
+import idl from "./idl.json";
 import { constants } from "buffer";
 import stream from "stream";
 import fs from "fs";
