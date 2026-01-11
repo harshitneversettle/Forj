@@ -12,7 +12,7 @@ forj = "8DUw9b9nwoXH6FuqBUGy7dknzpDy1Ljh94rwKYNdEHRb"
 url = "https://api.apr.dev"
 
 [provider]
-cluster = "localnet"
+cluster = "devnet"
 wallet = "~/.config/solana/id.json"
 
 [scripts]

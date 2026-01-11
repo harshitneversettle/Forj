@@ -23,7 +23,7 @@ dotenv.config();
 const admin = Keypair.fromSecretKey(
   Uint8Array.from(JSON.parse(process.env.PVT_KEY!))
 );
-const connection = new Connection("http://127.0.0.1:8899", "confirmed");
+const connection = new Connection("https://api.devnet.solana.com", "confirmed");
 
 const wallet = new anchor.Wallet(admin);
 const provider = new AnchorProvider(connection, wallet, {
@@ -147,7 +147,6 @@ app.post(
   }
 );
 
-
 app.post("/api/claim", async (req, res) => {
   const issuer = req.body.pubkey;
   const issuerPubkey = new PublicKey(issuer!);
@@ -161,6 +160,7 @@ app.post("/api/claim", async (req, res) => {
     ],
     programId
   );
+  console.log(eventPda.toBase58());
   const eventState = await (program.account as any).event.fetch(eventPda);
   const metadataUrl = eventState.metadataUri;
   const templateUri = eventState.templateUri;
@@ -172,8 +172,10 @@ app.post("/api/claim", async (req, res) => {
   let ans_email;
   let ans_position;
   let ans_eventName = eventName;
-  let verify_url = `http://localhost:5173/verify/${issuer}/${uniqueKey}`;
-  (data as []).map((i: any) => {
+  //console.log(studentEmail)
+  let verifyUrl = `http://localhost:5173/verify/${issuer}/${uniqueKey}/${studentEmail}`;
+  console.log(verifyUrl);
+  (data as []).find((i: any) => {
     let currEmail = i.email;
     if (currEmail === studentEmail) {
       ans_name = i.name;
@@ -191,9 +193,9 @@ app.post("/api/claim", async (req, res) => {
     ans_eventName,
     templateUri,
     eventName,
-    verify_url,
+    verifyUrl,
   };
-  console.log(`http://localhost:5173/verify/${issuer}/${uniqueKey}`);
+  //console.log(`http://localhost:5173/verify/${issuer}/${uniqueKey}`);
   if (
     ans_name === undefined ||
     ans_enroll === undefined ||
@@ -206,11 +208,10 @@ app.post("/api/claim", async (req, res) => {
   }
 });
 
-
-
 app.post("/api/generate-certificate", async (req, res) => {
   const { name, enrollment, position, eventName, templateUri, verifyUrl } =
     req.body;
+  console.log(req.body);
   const response = await axios.get(templateUri, {
     responseType: "arraybuffer",
   });
@@ -232,15 +233,12 @@ app.post("/api/generate-certificate", async (req, res) => {
     form.getTextField("position").setText(position);
   } catch {}
 
-  try {
-    form.getTextField("verify").setText(verifyUrl);
-  } catch {}
+  form.getTextField("verify").setText(verifyUrl);
 
   form.flatten();
   const pdfBytes = await certificate.save();
   res.send(Buffer.from(pdfBytes));
 });
-
 
 app.post("/api/verify", async (req, res) => {
   try {

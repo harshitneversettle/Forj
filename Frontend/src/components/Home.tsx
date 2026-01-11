@@ -28,7 +28,13 @@ export default function Home() {
           >
             Get started
           </button>
-          <button className="px-8 py-3 rounded-full border border-white/30 text-white font-semibold text-sm tracking-wide hover:border-white transition-colors duration-200">
+          <button
+            className="px-8 py-3 rounded-full border border-white/30 text-white font-semibold text-sm tracking-wide hover:border-white transition-colors duration-200"
+            onClick={() => {
+              window.location.href =
+                "https://github.com/harshitneversettle/Forj/blob/main/README.md";
+            }}
+          >
             View docs
           </button>
         </div>

@@ -20,7 +20,7 @@ interface ClaimData {
   position: string;
   eventName: string;
   templateUri: string;
-  verifyUrl : string;
+  verifyUrl: string;
 }
 
 export default function Claim() {
@@ -29,7 +29,7 @@ export default function Claim() {
   );
   const { issuer, uniqueKey } = useParams();
   const issuerPubkey = issuer ? new PublicKey(issuer!) : null;
-  const connection = new Connection("http://127.0.0.1:8899", "confirmed");
+  // const connection = new Connection("http://127.0.0.1:8899", "confirmed");
 
   const [user, setUser] = useState<GoogleUser | null>(null);
   const [loading, setLoading] = useState(false);
@@ -101,7 +101,7 @@ export default function Claim() {
         "http://localhost:3001/api/claim",
         data
       );
-      console.log(response.data);
+      console.log(typeof response.data.verifyUrl);
       if (String(response.data) == "error") {
         showNotification("No cert for this mail", "error");
       }
@@ -110,9 +110,9 @@ export default function Claim() {
         email: response.data.ans_email,
         enrollment: response.data.ans_enroll,
         position: response.data.ans_position,
-        eventName: response.data.eventName ,
+        eventName: response.data.eventName,
         templateUri: response.data.templateUri,
-        verifyUrl : response.data.verifyUrl ,
+        verifyUrl: response.data.verifyUrl,
       });
 
       showNotification(
@@ -134,10 +134,11 @@ export default function Claim() {
 
   const handleGenerateCertificate = async () => {
     if (!claimData || !claimData.templateUri) return;
-    
-    setProcessingPdf(true);
 
+    setProcessingPdf(true);
+    console.log(claimData);
     try {
+      if (!claimData.verifyUrl) return;
       const response = await axios.post(
         "http://localhost:3001/api/generate-certificate",
         {
@@ -147,14 +148,17 @@ export default function Claim() {
           position: claimData.position || null,
           eventName: claimData.eventName,
           templateUri: claimData.templateUri,
-          verifyUrl : claimData.verifyUrl
+          verifyUrl: claimData.verifyUrl,
         },
         { responseType: "arraybuffer" }
       );
       const url = window.URL.createObjectURL(new Blob([response.data]));
       const link = document.createElement("a");
       link.href = url;
-      link.setAttribute("download", `certificate-${claimData.enrollment}.pdf`);
+      link.setAttribute(
+        "download",
+        `${claimData.eventName}-${claimData.enrollment}.pdf`
+      );
       document.body.appendChild(link);
       link.click();
       link.remove();

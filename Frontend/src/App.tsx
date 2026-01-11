@@ -41,7 +41,7 @@ function App() {
                   <Route path="/claim/:issuer/:uniqueKey" element={<Claim />} />
                   <Route path="/verify" element={<Verify />} />
                   <Route
-                    path="/verify/:issuer/:uniqueKey"
+                    path="/verify/:issuer/:uniqueKey/:studentEmail"
                     element={<Verify />}
                   />
                 </Routes>

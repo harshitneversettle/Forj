@@ -15,7 +15,10 @@ export default function Admin() {
     "8DUw9b9nwoXH6FuqBUGy7dknzpDy1Ljh94rwKYNdEHRb"
   );
   const { publicKey, signTransaction, signAllTransactions } = useWallet();
-  const connection = new Connection("http://127.0.0.1:8899", "confirmed");
+  const connection = new Connection(
+    "https://api.devnet.solana.com",
+    "confirmed"
+  );
 
   const [file, setFile] = useState<File | null>(null);
   const [templateFile, setTemplateFile] = useState<File | null>(null);
@@ -163,7 +166,7 @@ export default function Admin() {
       );
       return;
     }
-
+    
     const ext = file.name.split(".").pop()?.toLowerCase();
     if (ext !== "csv" && file.type !== "text/csv") {
       showNotification(
@@ -214,17 +217,17 @@ export default function Admin() {
         showNotification("Wallet not connected", "error");
         return;
       }
-
+      console.log(eventId);
       const [eventPda] = PublicKey.findProgramAddressSync(
         [
           Buffer.from("event"),
           publicKey.toBuffer(),
-          new BN(uniqueKey).toArrayLike(Buffer, "le", 8),
+          new BN(eventId).toArrayLike(Buffer, "le", 8),
         ],
         programId
       );
       // console.log(eventId);
-      // console.log(eventPda.toString());
+      console.log(eventPda.toString());
       // console.log(eventName);
       // console.log(response.data);
       const exist = await connection.getAccountInfo(eventPda);
@@ -755,7 +758,7 @@ export default function Admin() {
                       {result.data.transactionSignature}
                     </p>
                     <a
-                      href={`https://explorer.solana.com/tx/${result.data.transactionSignature}?cluster=custom&customUrl=http://127.0.0.1:8899`}
+                      href={`https://explorer.solana.com/tx/${result.data.transactionSignature}?cluster=custom&customUrl=https://api.devnet.solana.com`}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="inline-flex items-center gap-2 text-blue-400 hover:text-blue-300 text-md mt-2 transition-colors"

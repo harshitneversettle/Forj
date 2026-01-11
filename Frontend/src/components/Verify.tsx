@@ -3,8 +3,7 @@ import { useState } from "react";
 import { useParams } from "react-router-dom";
 
 export default function Verify() {
-  const { issuer, uniqueKey } = useParams();
-  const [email, setEmail] = useState("");
+  const { issuer, uniqueKey, studentEmail } = useParams();
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState<any>(null);
   const [notification, setNotification] = useState<{
@@ -27,7 +26,7 @@ export default function Verify() {
   };
 
   const handleVerify = async () => {
-    if (!email) {
+    if (!studentEmail) {
       showNotification(
         "Email required",
         "error",
@@ -38,7 +37,7 @@ export default function Verify() {
 
     setLoading(true);
     setResult(null);
-
+    let email = studentEmail;
     try {
       const reqData = {
         issuer,
@@ -187,16 +186,9 @@ export default function Verify() {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-400 mb-2">
-                Email Address
+              <label className="block text-md font-medium text-gray-400 mb-2">
+                Email Address : {studentEmail}
               </label>
-              <input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="participant@example.com"
-                className="w-full px-5 py-4 bg-black/30 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-green-500/50 focus:ring-2 focus:ring-green-500/20 transition-all"
-              />
             </div>
 
             <button
