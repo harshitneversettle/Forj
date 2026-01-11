@@ -5,6 +5,7 @@ import {
   WalletProvider,
 } from "@solana/wallet-adapter-react";
 import { WalletModalProvider } from "@solana/wallet-adapter-react-ui";
+import { Buffer } from "buffer";
 import {
   PhantomWalletAdapter,
   SolflareWalletAdapter,
@@ -16,7 +17,9 @@ import Home from "./components/Home";
 import Admin from "./components/Admin";
 import Claim from "./components/Claim";
 import Verify from "./components/Verify";
-
+if (typeof window !== "undefined") {
+  window.Buffer = window.Buffer || Buffer;
+}
 function App() {
   const endpoint = useMemo(() => clusterApiUrl("devnet"), []);
 
