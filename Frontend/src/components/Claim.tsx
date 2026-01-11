@@ -2,9 +2,8 @@ import { useState } from "react";
 import { GoogleLogin } from "@react-oauth/google";
 import { jwtDecode } from "jwt-decode";
 import axios from "axios";
-import { Connection, PublicKey } from "@solana/web3.js";
+import { PublicKey } from "@solana/web3.js";
 import { useParams } from "react-router-dom";
-import { eventNames } from "process";
 
 interface GoogleUser {
   email: string;
@@ -24,9 +23,9 @@ interface ClaimData {
 }
 
 export default function Claim() {
-  const programId = new PublicKey(
-    "8DUw9b9nwoXH6FuqBUGy7dknzpDy1Ljh94rwKYNdEHRb"
-  );
+  // const programId = new PublicKey(
+  //   "8DUw9b9nwoXH6FuqBUGy7dknzpDy1Ljh94rwKYNdEHRb"
+  // );
   const { issuer, uniqueKey } = useParams();
   const issuerPubkey = issuer ? new PublicKey(issuer!) : null;
   // const connection = new Connection("http://127.0.0.1:8899", "confirmed");
@@ -98,7 +97,7 @@ export default function Claim() {
       };
 
       const response = await axios.post(
-        "http://localhost:3001/api/claim",
+        "https://forj-ze07.onrender.com/api/claim",
         data
       );
       console.log(typeof response.data.verifyUrl);
@@ -140,7 +139,7 @@ export default function Claim() {
     try {
       if (!claimData.verifyUrl) return;
       const response = await axios.post(
-        "http://localhost:3001/api/generate-certificate",
+        "https://forj-ze07.onrender.com/api/generate-certificate",
         {
           name: claimData.name,
           email: claimData.email,

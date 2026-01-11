@@ -1,0 +1,262 @@
+{
+  "address": "8DUw9b9nwoXH6FuqBUGy7dknzpDy1Ljh94rwKYNdEHRb",
+  "metadata": {
+    "name": "forj",
+    "version": "0.1.0",
+    "spec": "0.1.0",
+    "description": "Created with Anchor"
+  },
+  "instructions": [
+    {
+      "name": "claim",
+      "discriminator": [62, 198, 214, 193, 213, 159, 108, 210],
+      "accounts": [
+        {
+          "name": "issuer",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "event",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [101, 118, 101, 110, 116]
+              },
+              {
+                "kind": "account",
+                "path": "issuer"
+              },
+              {
+                "kind": "arg",
+                "path": "unique_key"
+              }
+            ]
+          }
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "unique_key",
+          "type": "u64"
+        },
+        {
+          "name": "cert_id",
+          "type": "u32"
+        }
+      ]
+    },
+    {
+      "name": "init_event",
+      "discriminator": [187, 76, 29, 231, 45, 94, 249, 84],
+      "accounts": [
+        {
+          "name": "issuer",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "new_event",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [101, 118, 101, 110, 116]
+              },
+              {
+                "kind": "account",
+                "path": "issuer"
+              },
+              {
+                "kind": "arg",
+                "path": "unique_key"
+              }
+            ]
+          }
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "unique_key",
+          "type": "u64"
+        },
+        {
+          "name": "event_name",
+          "type": "string"
+        },
+        {
+          "name": "event_id",
+          "type": "u64"
+        },
+        {
+          "name": "batch_size",
+          "type": "u32"
+        },
+        {
+          "name": "bit_map",
+          "type": "bytes"
+        },
+        {
+          "name": "merkle_root",
+          "type": {
+            "array": ["u8", 32]
+          }
+        },
+        {
+          "name": "metadata_uri",
+          "type": "string"
+        },
+        {
+          "name": "template_uri",
+          "type": "string"
+        },
+        {
+          "name": "merkle_proof_uri",
+          "type": "string"
+        }
+      ]
+    }
+  ],
+  "accounts": [
+    {
+      "name": "Event",
+      "discriminator": [125, 192, 125, 158, 9, 115, 152, 233]
+    }
+  ],
+  "errors": [
+    {
+      "code": 6000,
+      "name": "Unauthorized",
+      "msg": "Unauthorized access"
+    },
+    {
+      "code": 6001,
+      "name": "InvalidPrice",
+      "msg": "Invalid price feed"
+    },
+    {
+      "code": 6002,
+      "name": "MathOverflow",
+      "msg": "Math overflow"
+    },
+    {
+      "code": 6003,
+      "name": "InsufficientLiquidity",
+      "msg": "Insufficient liquidity"
+    },
+    {
+      "code": 6004,
+      "name": "InvalidMint",
+      "msg": "Invalid mint"
+    },
+    {
+      "code": 6005,
+      "name": "NotInitialized",
+      "msg": "Account not initialized"
+    },
+    {
+      "code": 6006,
+      "name": "InvalidPriceFeed",
+      "msg": "Invalid pyth data"
+    },
+    {
+      "code": 6007,
+      "name": "StalePrice",
+      "msg": "Stale Price"
+    },
+    {
+      "code": 6008,
+      "name": "BorrowLimitExceeded",
+      "msg": "Borrow amount would exceed collateral-backed limit"
+    },
+    {
+      "code": 6009,
+      "name": "NoBorrowCapacity",
+      "msg": "No remaining borrow capacity available"
+    },
+    {
+      "code": 6010,
+      "name": "AlreadyClaimed",
+      "msg": "No remaining borrow capacity available"
+    }
+  ],
+  "types": [
+    {
+      "name": "Event",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "issuer",
+            "type": "pubkey"
+          },
+          {
+            "name": "unique_key",
+            "type": "u64"
+          },
+          {
+            "name": "event_name",
+            "type": "string"
+          },
+          {
+            "name": "event_id",
+            "type": "u64"
+          },
+          {
+            "name": "batch_size",
+            "type": "u32"
+          },
+          {
+            "name": "bit_map",
+            "type": "bytes"
+          },
+          {
+            "name": "merkle_root",
+            "type": {
+              "array": ["u8", 32]
+            }
+          },
+          {
+            "name": "issued_timestamp",
+            "type": "i64"
+          },
+          {
+            "name": "metadata_uri",
+            "type": "string"
+          },
+          {
+            "name": "template_uri",
+            "type": "string"
+          },
+          {
+            "name": "merkle_proof_uri",
+            "type": "string"
+          },
+          {
+            "name": "remaning_certs",
+            "type": "u64"
+          },
+          {
+            "name": "issued_cert",
+            "type": "u64"
+          },
+          {
+            "name": "bump",
+            "type": "u8"
+          }
+        ]
+      }
+    }
+  ]
+}

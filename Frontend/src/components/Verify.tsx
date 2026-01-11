@@ -46,7 +46,7 @@ export default function Verify() {
       };
 
       const response = await axios.post(
-        "http://localhost:3001/api/verify",
+        "https://forj-ze07.onrender.com/api/verify",
         reqData
       );
 

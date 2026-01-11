@@ -8,7 +8,7 @@ import {
 } from "@solana/web3.js";
 import axios from "axios";
 import { AnchorProvider, Program, BN } from "@coral-xyz/anchor";
-import idl from "/home/titan/Desktop/forj/target/idl/forj.json";
+import idl from "./idl.json";
 
 export default function Admin() {
   const programId = new PublicKey(
