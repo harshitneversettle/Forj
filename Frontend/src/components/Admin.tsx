@@ -264,19 +264,17 @@ export default function Admin() {
           systemProgram: SystemProgram.programId,
         })
         .rpc();
-      setTimeout(() => {
-        setResult({
-          success: true,
-          data: {
-            totalCertificates: batchSize,
-            eventName: eventName,
-            transactionSignature: tx,
-            merkleRoot: merkleRoot,
-            metadataUri: metadataUri,
-            templateUploaded: data.templateUri || "Uploaded",
-          },
-        });
-      }, 3000);
+      setResult({
+        success: true,
+        data: {
+          totalCertificates: batchSize,
+          eventName: eventName,
+          transactionSignature: tx,
+          merkleRoot: merkleRoot,
+          metadataUri: metadataUri,
+          templateUploaded: data.templateUri || "Uploaded",
+        },
+      });
       showNotification(
         "Certificates issued successfully!",
         "success",
@@ -805,12 +803,12 @@ export default function Admin() {
                       Shareable link
                     </p>
                     <a
-                      href={`http://localhost:5173/claim/${publicKey.toBase58()}/${uniqueKey}`}
+                      href={`https://forj-eight.vercel.app/claim/${publicKey.toBase58()}/${uniqueKey}`}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-blue-400 hover:text-blue-300 break-all text-md transition-colors"
                     >
-                      {`http://localhost:5173/claim/${publicKey.toBase58()}/${uniqueKey}`}
+                      {`https://forj-eight.vercel.app/claim/${publicKey.toBase58()}/${uniqueKey}`}
                     </a>
                   </div>
                 </div>
