@@ -44,7 +44,7 @@ const pinata = new pinataSDK({ pinataJWTKey: process.env.JWT });
 
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: "https://forj-eight.vercel.app",
     credentials: true,
   })
 );
@@ -173,7 +173,7 @@ app.post("/api/claim", async (req, res) => {
   let ans_position;
   let ans_eventName = eventName;
   //console.log(studentEmail)
-  let verifyUrl = `http://localhost:5173/verify/${issuer}/${uniqueKey}/${studentEmail}`;
+  let verifyUrl = `https://forj-eight.vercel.app/verify/${issuer}/${uniqueKey}/${studentEmail}`;
   console.log(verifyUrl);
   (data as []).find((i: any) => {
     let currEmail = i.email;
