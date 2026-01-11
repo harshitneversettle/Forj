@@ -166,7 +166,7 @@ export default function Admin() {
       );
       return;
     }
-    
+
     const ext = file.name.split(".").pop()?.toLowerCase();
     if (ext !== "csv" && file.type !== "text/csv") {
       showNotification(
@@ -200,7 +200,7 @@ export default function Admin() {
       payload.append("issuerPubkey", publicKey?.toBase58() || "");
 
       const response = await axios.post(
-        "http://localhost:3001/api/upload",
+        "https://forj-ze07.onrender.com/api/upload",
         payload
       );
       const data = response.data;
