@@ -681,7 +681,7 @@ export default function Admin() {
         <button
           onClick={handleUpload}
           disabled={loading || (balance !== null && balance < 0.01)}
-          className="w-full bg-gradient-to-r from-blue-500 via-blue-600 to-purple-600 text-white py-5 px-6 rounded-xl font-bold text-lg hover:from-blue-600 hover:to-purple-700 transform hover:scale-[1.02] transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none shadow-lg shadow-blue-500/25"
+          className="w-full bg-blue-600 text-white py-5 px-6 rounded-xl font-bold text-lg hover:from-blue-600 hover:to-purple-700 transform hover:scale-[1.02] transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none shadow-lg shadow-blue-500/25"
         >
           {loading ? (
             <span className="flex items-center justify-center gap-3">
