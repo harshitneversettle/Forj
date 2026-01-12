@@ -46,7 +46,7 @@ export default function Verify() {
       };
 
       const response = await axios.post(
-        "https://forj-ze07.onrender.com/api/verify",
+        "https://forj-eight.vercel.app/api/verify",
         reqData
       );
 

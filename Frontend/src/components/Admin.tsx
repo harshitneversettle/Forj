@@ -16,7 +16,7 @@ export default function Admin() {
   );
   const { publicKey, signTransaction, signAllTransactions } = useWallet();
   const connection = new Connection(
-    "https://api.devnet.solana.com",
+    "https://devnet.helius-rpc.com/?api-key=734f5c9d-1802-48ab-ab39-4d2c80f8dd6e",
     "confirmed"
   );
 
@@ -199,7 +199,7 @@ export default function Admin() {
       payload.append("issuerPubkey", publicKey?.toBase58() || "");
 
       const response = await axios.post(
-        "https://forj-ze07.onrender.com/api/upload",
+        "https://forj-eight.vercel.app/api/upload",
         payload
       );
       const data = response.data;

@@ -23,7 +23,10 @@ dotenv.config();
 const admin = Keypair.fromSecretKey(
   Uint8Array.from(JSON.parse(process.env.PVT_KEY!))
 );
-const connection = new Connection("https://api.devnet.solana.com", "confirmed");
+const connection = new Connection(
+  "https://devnet.helius-rpc.com/?api-key=734f5c9d-1802-48ab-ab39-4d2c80f8dd6e",
+  "confirmed"
+);
 
 const wallet = new anchor.Wallet(admin);
 const provider = new AnchorProvider(connection, wallet, {
@@ -44,7 +47,7 @@ const pinata = new pinataSDK({ pinataJWTKey: process.env.JWT });
 
 app.use(
   cors({
-    origin: "https://forj-o6p9v2x7b-harshitneversettle.vercel.app",
+    origin: "https://forj-eight.vercel.app",
     credentials: true,
   })
 );
