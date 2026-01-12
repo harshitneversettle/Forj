@@ -199,7 +199,7 @@ export default function Admin() {
       payload.append("issuerPubkey", publicKey?.toBase58() || "");
 
       const response = await axios.post(
-        "https://forj-eight.vercel.app/api/upload",
+        "https://forj-ze07.onrender.com/api/upload",
         payload
       );
       const data = response.data;

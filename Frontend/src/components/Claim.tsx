@@ -97,7 +97,7 @@ export default function Claim() {
       };
 
       const response = await axios.post(
-        "https://forj-eight.vercel.app/api/claim",
+        "https://forj-ze07.onrender.com/api/claim",
         data
       );
       console.log(typeof response.data.verifyUrl);
@@ -139,7 +139,7 @@ export default function Claim() {
     try {
       if (!claimData.verifyUrl) return;
       const response = await axios.post(
-        "https://forj-eight.vercel.app/api/generate-certificate",
+        "https://forj-ze07.onrender.com/api/generate-certificate",
         {
           name: claimData.name,
           email: claimData.email,

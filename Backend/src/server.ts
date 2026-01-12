@@ -164,7 +164,7 @@ app.post("/api/claim", async (req, res) => {
     programId
   );
   console.log(eventPda.toBase58());
-  const eventState = await (program.account as any).event.fetch(eventPda);
+  const eventState = await(program.account as any).event.fetch(eventPda);
   const metadataUrl = eventState.metadataUri;
   const templateUri = eventState.templateUri;
   const result = await fetch(metadataUrl);
@@ -176,7 +176,7 @@ app.post("/api/claim", async (req, res) => {
   let ans_position;
   let ans_eventName = eventName;
   //console.log(studentEmail)
-  let verifyUrl = `https://forj-o6p9v2x7b-harshitneversettle.vercel.app/verify/${issuer}/${uniqueKey}/${studentEmail}`;
+  let verifyUrl = `https://forj-eight.vercel.app/verify/${issuer}/${uniqueKey}/${studentEmail}`;
   console.log(verifyUrl);
   (data as []).find((i: any) => {
     let currEmail = i.email;
@@ -198,7 +198,7 @@ app.post("/api/claim", async (req, res) => {
     eventName,
     verifyUrl,
   };
-  //console.log(`https://forj-o6p9v2x7b-harshitneversettle.vercel.app/verify/${issuer}/${uniqueKey}`);
+  //console.log(`https://forj-eight.vercel.app/verify/${issuer}/${uniqueKey}`);
   if (
     ans_name === undefined ||
     ans_enroll === undefined ||
