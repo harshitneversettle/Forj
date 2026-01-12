@@ -25,7 +25,7 @@ Frontend: React, TypeScript, Tailwind CSS
 
 Backend: Node.js, Express, TypeScript
 
-Storage: IPFS (Pinata), Amazon S3
+Storage: IPFS (Pinata)
 
 Cryptography: MerkleTree.js, SHA-256
 
