@@ -802,12 +802,12 @@ export default function Admin() {
                       Shareable link
                     </p>
                     <a
-                      href={`https://forj-o6p9v2x7b-harshitneversettle.vercel.app/claim/${publicKey.toBase58()}/${uniqueKey}`}
+                      href={`https://forj-eight.vercel.app/claim/${publicKey.toBase58()}/${uniqueKey}`}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-blue-400 hover:text-blue-300 break-all text-md transition-colors"
                     >
-                      {`https://forj-o6p9v2x7b-harshitneversettle.vercel.app/claim/${publicKey.toBase58()}/${uniqueKey}`}
+                      {`https://forj-eight.vercel.app/claim/${publicKey.toBase58()}/${uniqueKey}`}
                     </a>
                   </div>
                 </div>
