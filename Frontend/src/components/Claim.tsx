@@ -24,7 +24,7 @@ interface ClaimData {
 
 export default function Claim() {
   // const programId = new PublicKey(
-  //   "8DUw9b9nwoXH6FuqBUGy7dknzpDy1Ljh94rwKYNdEHRb"
+  //   "EtaqN8Lz1J1zdoJRXapCNudMDKaWyxcGtapi6eWjnGfC"
   // );
   const { issuer, uniqueKey } = useParams();
   const issuerPubkey = issuer ? new PublicKey(issuer!) : null;
@@ -97,7 +97,7 @@ export default function Claim() {
       };
 
       const response = await axios.post(
-        "https://forj-ze07.onrender.com/api/claim",
+        "http://localhost:3001/api/claim",
         data
       );
       console.log(typeof response.data.verifyUrl);
@@ -139,7 +139,7 @@ export default function Claim() {
     try {
       if (!claimData.verifyUrl) return;
       const response = await axios.post(
-        "https://forj-ze07.onrender.com/api/generate-certificate",
+        "http://localhost:3001/api/generate-certificate",
         {
           name: claimData.name,
           email: claimData.email,

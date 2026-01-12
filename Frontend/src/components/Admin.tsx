@@ -12,7 +12,7 @@ import idl from "./idl.json";
 
 export default function Admin() {
   const programId = new PublicKey(
-    "8DUw9b9nwoXH6FuqBUGy7dknzpDy1Ljh94rwKYNdEHRb"
+    "EtaqN8Lz1J1zdoJRXapCNudMDKaWyxcGtapi6eWjnGfC"
   );
   const { publicKey, signTransaction, signAllTransactions } = useWallet();
   const connection = new Connection(
@@ -189,7 +189,6 @@ export default function Admin() {
 
     setLoading(true);
     setResult(null);
-
     try {
       const payload = new FormData();
       payload.append("eventName", eventName);
@@ -200,7 +199,7 @@ export default function Admin() {
       payload.append("issuerPubkey", publicKey?.toBase58() || "");
 
       const response = await axios.post(
-        "https://forj-ze07.onrender.com/api/upload",
+        "http://localhost:3001/api/upload",
         payload
       );
       const data = response.data;
@@ -235,7 +234,7 @@ export default function Admin() {
         showNotification(
           "Batch already exists!",
           "warning",
-          "Changing eventId may work"
+          "Batch can only be distinguished using pubKey || event id "
         );
         return;
       }
@@ -248,7 +247,7 @@ export default function Admin() {
 
       const tx = await program.methods
         .initEvent(
-          new BN(uniqueKey),
+          new BN(data.eventId),
           eventName,
           new BN(eventId),
           batchSize,
@@ -803,12 +802,12 @@ export default function Admin() {
                       Shareable link
                     </p>
                     <a
-                      href={`https://forj-eight.vercel.app/claim/${publicKey.toBase58()}/${uniqueKey}`}
+                      href={`http://localhost:5173/claim/${publicKey.toBase58()}/${uniqueKey}`}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-blue-400 hover:text-blue-300 break-all text-md transition-colors"
                     >
-                      {`https://forj-eight.vercel.app/claim/${publicKey.toBase58()}/${uniqueKey}`}
+                      {`http://localhost:5173/claim/${publicKey.toBase58()}/${uniqueKey}`}
                     </a>
                   </div>
                 </div>

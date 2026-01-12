@@ -30,7 +30,7 @@ const provider = new AnchorProvider(connection, wallet, {
   commitment: "confirmed",
 });
 anchor.setProvider(provider);
-const programId = new PublicKey("8DUw9b9nwoXH6FuqBUGy7dknzpDy1Ljh94rwKYNdEHRb");
+const programId = new PublicKey("EtaqN8Lz1J1zdoJRXapCNudMDKaWyxcGtapi6eWjnGfC");
 const program = new Program(idl as anchor.Idl, provider);
 
 interface student {
@@ -44,7 +44,7 @@ const pinata = new pinataSDK({ pinataJWTKey: process.env.JWT });
 
 app.use(
   cors({
-    origin: "https://forj-eight.vercel.app",
+    origin: "http://localhost:5173",
     credentials: true,
   })
 );
@@ -173,7 +173,7 @@ app.post("/api/claim", async (req, res) => {
   let ans_position;
   let ans_eventName = eventName;
   //console.log(studentEmail)
-  let verifyUrl = `https://forj-eight.vercel.app/verify/${issuer}/${uniqueKey}/${studentEmail}`;
+  let verifyUrl = `http://localhost:5173/verify/${issuer}/${uniqueKey}/${studentEmail}`;
   console.log(verifyUrl);
   (data as []).find((i: any) => {
     let currEmail = i.email;

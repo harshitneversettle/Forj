@@ -6,7 +6,7 @@ resolution = true
 skip-lint = false
 
 [programs.localnet]
-forj = "8DUw9b9nwoXH6FuqBUGy7dknzpDy1Ljh94rwKYNdEHRb"
+forj = "EtaqN8Lz1J1zdoJRXapCNudMDKaWyxcGtapi6eWjnGfC"
 
 [registry]
 url = "https://api.apr.dev"
