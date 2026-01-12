@@ -199,7 +199,7 @@ export default function Admin() {
       payload.append("issuerPubkey", publicKey?.toBase58() || "");
 
       const response = await axios.post(
-        "http://localhost:3001/api/upload",
+        "https://forj-ze07.onrender.com/api/upload",
         payload
       );
       const data = response.data;
@@ -802,12 +802,12 @@ export default function Admin() {
                       Shareable link
                     </p>
                     <a
-                      href={`http://localhost:5173/claim/${publicKey.toBase58()}/${uniqueKey}`}
+                      href={`https://forj-o6p9v2x7b-harshitneversettle.vercel.app/claim/${publicKey.toBase58()}/${uniqueKey}`}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-blue-400 hover:text-blue-300 break-all text-md transition-colors"
                     >
-                      {`http://localhost:5173/claim/${publicKey.toBase58()}/${uniqueKey}`}
+                      {`https://forj-o6p9v2x7b-harshitneversettle.vercel.app/claim/${publicKey.toBase58()}/${uniqueKey}`}
                     </a>
                   </div>
                 </div>
