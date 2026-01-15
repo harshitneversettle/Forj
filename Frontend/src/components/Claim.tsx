@@ -147,7 +147,7 @@ export default function Claim() {
           position: claimData.position || null,
           eventName: claimData.eventName,
           templateUri: claimData.templateUri,
-          verifyUrl: claimData.verifyUrl,
+          //verifyUrl: claimData.verifyUrl,
         },
         { responseType: "arraybuffer" }
       );

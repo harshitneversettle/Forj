@@ -236,7 +236,7 @@ app.post("/api/generate-certificate", async (req, res) => {
     form.getTextField("position").setText(position);
   } catch {}
 
-  form.getTextField("verify").setText(verifyUrl);
+  //form.getTextField("verify").setText(verifyUrl);
 
   form.flatten();
   const pdfBytes = await certificate.save();
