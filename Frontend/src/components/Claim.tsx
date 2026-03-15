@@ -5,6 +5,7 @@ import ShowNoti from "./showNoti";
 import type ClaimData from "../types/ClaimData";
 import ClaimCert from "./claimcert";
 import type GoogleUser from "../types/GoogleUser";
+import { backend_url } from "../config/be_url";
 
 export default function Claim() {
   // const connection = new Connection("http://127.0.0.1:8899", "confirmed");
@@ -22,7 +23,7 @@ export default function Claim() {
     try {
       if (!claimData.verifyUrl) return;
       const response = await axios.post(
-        "http://localhost:3001/api/generate-certificate",
+        `${backend_url}/api/generate-certificate`,
         {
           name: claimData.name,
           email: claimData.email,

@@ -1,4 +1,5 @@
 import type { PublicKey } from "@solana/web3.js";
+import { frontend_url } from "../config/fe_url";
 
 interface props {
   result: any;
@@ -80,11 +81,11 @@ export default function Result({ result, uniqueKeyRef, publicKey }: props) {
                   Shareable Link
                 </p>
                 <a
-                  href={`http://localhost:5173/claim/${publicKey.toString()}/${uniqueKeyRef.current?.toString()}`}
+                  href={`${frontend_url}/claim/${publicKey.toString()}/${uniqueKeyRef.current?.toString()}`}
                   target="_blank"
                   className="text-blue-400 hover:text-blue-300 break-all font-mono text-md transition-colors"
                 >
-                  {`http://localhost:5173/claim/${publicKey.toString()}/${uniqueKeyRef.current?.toString()}`}
+                  {`${frontend_url}/claim/${publicKey.toString()}/${uniqueKeyRef.current?.toString()}`}
                 </a>
               </div>
             </div>

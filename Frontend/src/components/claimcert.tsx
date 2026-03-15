@@ -7,6 +7,7 @@ import axios from "axios";
 import { useParams } from "react-router-dom";
 import { PublicKey } from "@solana/web3.js";
 import { FaUser } from "react-icons/fa";
+import { backend_url } from "../config/be_url";
 
 interface props {
   user: GoogleUser | null;
@@ -79,10 +80,7 @@ export default function ClaimCert({
         userEmail: user.email,
       };
 
-      const response = await axios.post(
-        "http://localhost:3001/api/claim",
-        data,
-      );
+      const response = await axios.post(`${backend_url}/api/claim`, data);
       console.log(typeof response.data.verifyUrl);
       if (String(response.data) == "error") {
         handlenoti("No cert for this mail", "", "error");

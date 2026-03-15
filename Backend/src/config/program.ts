@@ -1,9 +1,9 @@
 import { AnchorProvider, Program } from "@coral-xyz/anchor";
 import { connection } from "./connection";
 import * as anchor from "@coral-xyz/anchor";
-import { wallet } from "./wallet";
 import idl from "../idl.json";
-
+import { getWallet } from "./wallet";
+const wallet = getWallet();
 const provider = new AnchorProvider(connection, wallet, {
   commitment: "confirmed",
 });

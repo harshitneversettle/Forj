@@ -12,6 +12,7 @@ import Csv from "./csvupload";
 import Result from "./result";
 import ShowNoti from "./showNoti";
 import { useNotihandler } from "../hooks/notihandler";
+import { backend_url } from "../config/be_url";
 
 export default function Admin() {
   const programId = new PublicKey(
@@ -112,10 +113,7 @@ export default function Admin() {
       payload.append("issuerPubkey", publicKey?.toBase58() || "");
 
       console.log("payload gaya");
-      const response = await axios.post(
-        "http://localhost:3001/api/upload",
-        payload,
-      );
+      const response = await axios.post(`${backend_url}/api/upload`, payload);
       const data = response.data;
       console.log(data);
       uniqueKeyRef.current = data.eventId;
@@ -280,7 +278,6 @@ export default function Admin() {
           publicKey={publicKey}
         />
       )}
-     
     </div>
   );
 }

@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
+import { backend_url } from "../config/be_url";
 
 export default function Verify() {
   const { issuer, uniqueKey, studentEmail } = useParams();
@@ -45,10 +46,7 @@ export default function Verify() {
         email,
       };
 
-      const response = await axios.post(
-        "http://localhost:3001/api/verify",
-        reqData,
-      );
+      const response = await axios.post(`${backend_url}/api/verify`, reqData);
 
       const data = await response.data;
       setResult(data);
