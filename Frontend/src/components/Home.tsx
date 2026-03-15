@@ -122,7 +122,7 @@ export default function Home() {
       </section>
 
       <section className="text-center animate-fade-in opacity-0 animation-delay-1200">
-        <p className="text-gray-500 text-lg tracking-[0.35em] uppercase">
+        <p className="text-gray-500 text-lg tracking-widest uppercase">
           Immutable . Verifiable . Composable . Institution‑grade
         </p>
       </section>

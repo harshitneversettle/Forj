@@ -16,12 +16,12 @@ export default function Verify() {
   const showNotification = (
     message: string,
     type: "success" | "error" | "warning",
-    subtitle?: string
+    subtitle?: string,
   ) => {
     setNotification({ show: true, message, subtitle, type });
     setTimeout(
       () => setNotification({ show: false, message: "", type: "success" }),
-      6000
+      6000,
     );
   };
 
@@ -30,7 +30,7 @@ export default function Verify() {
       showNotification(
         "Email required",
         "error",
-        "Please enter your email address"
+        "Please enter your email address",
       );
       return;
     }
@@ -46,8 +46,8 @@ export default function Verify() {
       };
 
       const response = await axios.post(
-        "https://forj-ze07.onrender.com/api/verify",
-        reqData
+        "http://localhost:3001/api/verify",
+        reqData,
       );
 
       const data = await response.data;
@@ -57,13 +57,13 @@ export default function Verify() {
         showNotification(
           "Valid Certificate",
           "success",
-          "The certificate is cryptographically valid"
+          "The certificate is cryptographically valid",
         );
       } else {
         showNotification(
           "Invalid Certificate",
           "error",
-          "The certificate is cryptographically invalid"
+          "The certificate is cryptographically invalid",
         );
       }
     } catch (error: any) {
@@ -71,7 +71,7 @@ export default function Verify() {
       showNotification(
         "Verification failed",
         "error",
-        error.message || "Please check your connection"
+        error.message || "Please check your connection",
       );
     } finally {
       setLoading(false);
