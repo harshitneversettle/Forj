@@ -4,8 +4,6 @@ import crypto from "crypto";
 import dotenv from "dotenv";
 import { BN } from "@coral-xyz/anchor";
 import { PublicKey } from "@solana/web3.js";
-import { PDFDocument } from "pdf-lib";
-import axios from "axios";
 import upload_route from "./routes/upload_route";
 import { programId } from "./config/programId";
 import { program } from "./config/program";
@@ -16,7 +14,7 @@ app.use(express.json());
 
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: ["http://localhost:5173" , "https://forj.harshityad4v.in"] ,
     credentials: true,
   }),
 );
@@ -25,22 +23,7 @@ app.use("/api/upload", upload_route);
 app.use("/api/claim", handle_claim);
 
 app.post("/api/generate-certificate", async (req, res) => {
-  const { templateUri, ...data } = req.body;
-  console.log(data);
-  const response = await axios.get(templateUri, {
-    responseType: "arraybuffer",
-  });
-  const certificate = await PDFDocument.load(response.data);
-  const form = certificate.getForm();
-
-  Object.entries(data).forEach(([key, val]) => {
-    try {
-      form.getTextField(key).setText(val as string);
-    } catch {}
-  });
-  form.flatten();
-  const pdfBytes = await certificate.save();
-  res.send(Buffer.from(pdfBytes));
+ 
 });
 
 app.post("/api/verify", async (req, res) => {
