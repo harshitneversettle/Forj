@@ -2,8 +2,8 @@ ProgramId : EtaqN8Lz1J1zdoJRXapCNudMDKaWyxcGtapi6eWjnGfC
 
 Live on : [forj.harshityad4v.in](forj.harshityad4v.in)
 
-Demo : https://www.loom.com/share/736ca410e645429c96b00dfad82978f9
-
+Demo : <p align="center">https://www.loom.com/share/736ca410e645429c96b00dfad82978f9
+</p>
 
 # Forj: Blockchain Certificate Verification System
 Forj is a decentralized platform built on the Solana blockchain designed to issue and verify tamper-proof digital certificates. By leveraging Merkle Trees and IPFS, Forj ensures that academic or professional credentials remain permanent, verifiable, and private, while maintaining minimal on-chain storage costs.
@@ -20,6 +20,9 @@ The system addresses the vulnerabilities of traditional PDF certificates—such 
 
 4. Verification Layer: Students claim certificates by providing their email; the system generates a Merkle Proof to validate their claim against the on-chain root before serving the finalized PDF.
 
+## Database arch 
+<img width="1136" height="803" alt="image" src="https://github.com/user-attachments/assets/2660f778-142f-46dd-bdfe-da51ec895de6" />
+
 ## Tech Stack
 Blockchain: Solana (Rust, Anchor Framework)
 
@@ -27,7 +30,7 @@ Frontend: React, TypeScript, Tailwind CSS
 
 Backend: Node.js, Express, TypeScript
 
-Storage: IPFS (Pinata)
+Storage: IPFS (Pinata) , postGres
 
 Cryptography: MerkleTree.js, SHA-256
 
