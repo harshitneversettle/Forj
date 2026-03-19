@@ -1,1 +1,36 @@
 version: "3.8"
+services:
+  database:
+    image: postgres
+    container_name: forj_postgres
+    ports:
+      - 5432:5432
+    volumes:
+      - forj_volume:/var/lib/postgresql
+    environment:
+      - POSTGRES_USER=forj_harshit
+      - POSTGRES_PASSWORD=forj_1234
+      - POSTGRES_DB=forj_db_dev
+
+  backend:
+    image: harshitneversettle/forj-backend:dev
+    container_name: forj_backend
+    environment:
+      - DATABASE_URL=postgres://forj_harshit:forj_1234@forj_postgres:5432/forj_db_dev
+    ports:
+      - 3001:3001
+    depends_on:
+      - database
+    restart: always
+
+  frontend:
+    image: harshitneversettle/forj-frontend:dev
+    container_name: forj_frontend
+    ports:
+      - 5173:5173
+    depends_on:
+      - backend
+    restart: always
+
+volumes:
+  forj_volume:
