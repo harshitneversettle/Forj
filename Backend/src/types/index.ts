@@ -4,3 +4,4 @@ export interface student {
   email: string;
   position: string | null;
 }
+

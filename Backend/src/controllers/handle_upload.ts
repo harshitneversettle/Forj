@@ -14,7 +14,6 @@ export default async function handle_upload(req: any, res: any) {
     templateFile,
   );
   const { root, merkleProof } = buildMerkleTreeAndProofs(all_students);
-  console.log("loda env",process.env.JWT)
   const pinata : any = getPinata() ;
   let result3 = await pinata.pinJSONToIPFS(merkleProof);
   let cid3 = result3.IpfsHash;
@@ -38,7 +37,8 @@ export default async function handle_upload(req: any, res: any) {
     merkleRoot,
     metadataUri,
     templateUri,
+    all_students ,
     merkleProofUri,
   };
-  res.send(data);
+  res.json(data);
 }

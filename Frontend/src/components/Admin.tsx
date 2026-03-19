@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useWallet } from "@solana/wallet-adapter-react";
 import { PublicKey, SystemProgram, Connection } from "@solana/web3.js";
 import axios from "axios";
@@ -13,13 +13,24 @@ import Result from "./result";
 import ShowNoti from "./showNoti";
 import { useNotihandler } from "../hooks/notihandler";
 import { backend_url } from "../config/be_url";
+import { FaLock } from "react-icons/fa";
 
 export default function Admin() {
   const programId = new PublicKey(
     "EtaqN8Lz1J1zdoJRXapCNudMDKaWyxcGtapi6eWjnGfC",
   );
   const { publicKey, signTransaction, signAllTransactions } = useWallet();
-  if (!publicKey) return;
+  useEffect(() => {
+    async function m() {
+      const response = await axios.post(`${backend_url}/api/admin-signup`, {
+        address: publicKey,
+        issueAmount: 0,
+      });
+      console.log(response);
+    }
+    m();
+  }, [publicKey]);
+
   const connection = new Connection(
     "https://devnet.helius-rpc.com/?api-key=734f5c9d-1802-48ab-ab39-4d2c80f8dd6e",
     "confirmed",
@@ -60,8 +71,31 @@ export default function Admin() {
     handleTemplateDrop,
   } = useDragDrop(handlenoti);
 
+  if (!publicKey) {
+    return (
+      <>
+        <ShowNoti
+          notification={notification}
+          setNotification={setNotification}
+        />
+        <div className="flex flex-col items-center justify-center min-h-[60vh] gap-6">
+          <div className="w-16 h-16 rounded-full border border-white/10 bg-white/5 flex items-center justify-center">
+            <FaLock size={28} className="text-zinc-200" />
+          </div>
+          <div className="text-center space-y-2">
+            <p className="text-white text-2xl font-semibold">
+              Wallet not connected
+            </p>
+            <p className="text-gray-500 text-md">
+              Connect your Solana wallet to issue certificates
+            </p>
+          </div>
+        </div>
+      </>
+    );
+  }
+
   const handleUpload = async () => {
-    console.log("insode upload");
     if (
       !file ||
       !eventNameRef.current?.value ||
@@ -123,6 +157,9 @@ export default function Admin() {
       const metadataUri = data.metadataUri;
       const templateUri = data.templateUri;
       const merkleProofUri = data.merkleProofUri;
+      const all_students = data.all_students;
+      console.log(publicKey.toString());
+      const address = publicKey.toString();
       if (!publicKey) {
         handlenoti("Wallet not connected", "connect your wallet", "error");
         return;
@@ -135,10 +172,7 @@ export default function Admin() {
         ],
         programId,
       );
-      // console.log(eventId);
       console.log(eventPda.toString());
-      // console.log(eventName);
-      // console.log(response.data);
       const exist = await connection.getAccountInfo(eventPda);
       if (exist) {
         alert("batch already exists , try changing the EventId");
@@ -147,7 +181,6 @@ export default function Admin() {
         emailDomainRef.current.value = "";
         return;
       }
-
       const program = getProgram();
       if (!program) {
         handlenoti("Failed to initialize program", "", "error");
@@ -188,6 +221,22 @@ export default function Admin() {
         "Transaction confirmed on blockchain",
         "success",
       );
+      const response3 = await axios.post(`${backend_url}/api/update-event`, {
+        eventName: eventNameRef.current.value,
+        eventId: eventIdRef.current.value,
+        issueAmount: batchSize,
+        adminAddress: address,
+      });
+      console.log(response3);
+      let all_mails: string[] = [];
+      Object.entries(all_students).map((i: any) => {
+        all_mails.push(i[1].email);
+      });
+      const response4 = await axios.post(`${backend_url}/api/update-students`, {
+        all_mails,
+        eventId: Number(eventIdRef.current.value),
+      });
+      console.log(response4.data);
     } catch (error: any) {
       console.error("Transaction error:", error);
       handlenoti(
@@ -262,8 +311,8 @@ export default function Admin() {
 
         <button
           onClick={handleUpload}
-          disabled={loading || (balance !== null && balance < 0.01)}
-          className="w-full bg-white/90 text-black py-5 px-6 rounded-xl font-bold text-lg transform hover:scale-[1.02] transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
+          // disabled={loading || (balance !== null && balance < 0.01)}
+          className="w-full bg-white/90 text-black py-5 px-6 rounded-xl font-bold text-lg transform hover:scale-[1.02] transition-all duration-200 "
         >
           {balance !== null && balance < 0.01
             ? "Insufficient Balance - Need 0.01 SOL"
@@ -276,6 +325,8 @@ export default function Admin() {
           result={result}
           uniqueKeyRef={uniqueKeyRef}
           publicKey={publicKey}
+          emailDomainRef={emailDomainRef}
+          eventNameRef={eventNameRef}
         />
       )}
     </div>

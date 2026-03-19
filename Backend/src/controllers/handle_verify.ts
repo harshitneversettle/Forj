@@ -1,15 +1,16 @@
 import { PublicKey } from "@solana/web3.js";
-import { BN } from "bn.js";
 import { programId } from "../config/programId";
 import { program } from "../config/program";
 import { Make_hash } from "../helpers/making_hashes";
+import { BN } from "@coral-xyz/anchor";
 
 export default async function handle_verify(req: any, res: any) {
   try {
     const { issuer, uniqueKey, email } = req.body;
     const issuerPubkey = new PublicKey(issuer!);
+    console.log(issuerPubkey);
     //console.log(issuerPubkey.toBase58());
-    const [eventPda, bump] = await PublicKey.findProgramAddressSync(
+    const [eventPda, bump] = PublicKey.findProgramAddressSync(
       [
         Buffer.from("event"),
         issuerPubkey.toBuffer(),
@@ -44,18 +45,21 @@ export default async function handle_verify(req: any, res: any) {
           name: i.name,
           position: i.position,
         };
-        corress_idx = index;
+        corress_idx = index; // index of the student in all student , isse hume is student ke merkle proofs milenge
       }
     });
     //console.log(corress_idx);
-    const data = JSON.stringify(student, Object.keys(student));
+    const data = JSON.stringify(student);
+    console.log(data);
     let leafHash = Make_hash(data);
-    const proof = (merkleProof as [])[corress_idx] as any[];
+    const proof = (merkleProof as [])[corress_idx] as any[]; // yaha use hua hai , jo data match hua uska merkle proof nikalo
     for (const i of proof) {
       const cleanHex = i.toString().startsWith("0x") ? i.slice(2) : i;
       const proofBuffer = Buffer.from(cleanHex, "hex");
       if (leafHash.compare(proofBuffer) < 0) {
-        leafHash = Make_hash(Buffer.concat([leafHash, proofBuffer]));
+        // this is like sorting , we used sort true for keys mismatch prpoblem
+        leafHash = Make_hash(Buffer.concat([leafHash, proofBuffer])); // root = hash of all the leaves , yaha bhi same ,
+        // root = hash of all the merkle proof
       } else {
         leafHash = Make_hash(Buffer.concat([proofBuffer, leafHash]));
       }
@@ -66,9 +70,13 @@ export default async function handle_verify(req: any, res: any) {
     );
     const verified = leafHash.equals(merkleRoot);
     console.log(verified);
-    res.send(verified);
+    if (verified) {
+      return res.send("valid");
+    } else {
+      return res.send("invalid");
+    }
   } catch (error) {
     console.log("lol");
-    res.send("lol");
+    return res.send("invalid");
   }
 }

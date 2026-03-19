@@ -1,20 +1,43 @@
 import type { PublicKey } from "@solana/web3.js";
 import { frontend_url } from "../config/fe_url";
+import axios from "axios";
+import { backend_url } from "../config/be_url";
 
 interface props {
   result: any;
   uniqueKeyRef: React.RefObject<number | null>;
   publicKey: PublicKey;
+  emailDomainRef: React.RefObject<HTMLInputElement | null>;
+  eventNameRef: React.RefObject<HTMLInputElement | null>;
 }
 
-export default function Result({ result, uniqueKeyRef, publicKey }: props) {
+export default function Result({
+  result,
+  uniqueKeyRef,
+  publicKey,
+  emailDomainRef,
+  eventNameRef,
+}: props) {
   console.log(typeof publicKey);
+
+  async function handleMails() {
+    const link = `${frontend_url}/claim/${publicKey.toString()}/${uniqueKeyRef.current?.toString()}`;
+    const domain = emailDomainRef.current?.value;
+    const eventName = eventNameRef.current?.value;
+
+    const response = await axios.post(`${backend_url}/api/send-emails` , {
+      link ,
+      domain ,
+      eventName
+    })
+    console.log(response.data)
+  }
+
   return (
     <>
       {result.success && (
         <div className="mt-8 p-8 bg-zinc-950 text-white border border-white/30  rounded-2xl font-mono">
           <div className="flex items-start gap-5">
-            <div className="w-3 h-3 rounded-full bg-green-400 animate-pulse flex-shrink-0 mt-2" />
             <div className="flex-1">
               <p className="font-bold text-white text-3xl mb-6 tracking-tight">
                 Certificates Issued Successfully!
@@ -22,18 +45,28 @@ export default function Result({ result, uniqueKeyRef, publicKey }: props) {
 
               <div className="h-px bg-[#1e1e1e] mb-5" />
 
-              <div className="space-y-3 mb-5">
-                <div className="text-md">
-                  <span className="text-white">Total Certificates : </span>
-                  <span className="text-white font-bold">
-                    {result.data.totalCertificates}
-                  </span>
+              <div className="flex justify-between">
+                <div className="space-y-3 mb-5">
+                  <div className="text-md">
+                    <span className="text-white">Total Certificates : </span>
+                    <span className="text-white font-bold">
+                      {result.data.totalCertificates}
+                    </span>
+                  </div>
+                  <div className="text-md ">
+                    <span className="text-white">Event Name : </span>
+                    <span className="text-white font-bold">
+                      {result.data.eventName}
+                    </span>
+                  </div>
                 </div>
-                <div className="text-md ">
-                  <span className="text-white">Event Name : </span>
-                  <span className="text-white font-bold">
-                    {result.data.eventName}
-                  </span>
+                <div className="">
+                  <button
+                    onClick={handleMails}
+                    className="bg-white rounded-2xl border border-zinc-200/30 w-fit text-black p-1 hover:scale-[1.1] transition-all duration-300"
+                  >
+                    Send mails to all
+                  </button>
                 </div>
               </div>
 

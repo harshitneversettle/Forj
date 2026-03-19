@@ -42,6 +42,13 @@ export default function Navbar() {
               >
                 Verify
               </button>
+              <button
+                className="px-5 py-2.5 rounded-xl font-medium transition-all duration-200 text-white hover:bg-zinc-800"
+                onClick={() => navigate("/admin-dashboard")}
+              >
+                admin-dashboard
+              </button>
+
               <WalletMultiButton />
             </div>
           </div>

@@ -1,7 +1,8 @@
-import {program} from "../config/program"
+import { program } from "../config/program";
 import { PublicKey } from "@solana/web3.js";
 import { BN } from "bn.js";
 import { programId } from "../config/programId";
+import { db } from "../db";
 
 export default async function handle_claim(req: any, res: any) {
   const issuer = req.body.pubkey;
@@ -29,7 +30,6 @@ export default async function handle_claim(req: any, res: any) {
   let ans_email;
   let ans_position;
   let ans_eventName = eventName;
-  //console.log(studentEmail)
   let verifyUrl = `http://localhost:5173/verify/${issuer}/${uniqueKey}/${studentEmail}`;
   console.log(verifyUrl);
   (data as []).find((i: any) => {
@@ -41,7 +41,6 @@ export default async function handle_claim(req: any, res: any) {
       ans_position = i.position || null;
     }
   });
-
   const response = {
     ans_name,
     ans_enroll,
@@ -62,5 +61,9 @@ export default async function handle_claim(req: any, res: any) {
     res.status(400).send("error");
   } else {
     res.json(response);
+    await db.allStudents.updateMany({
+      where: { eventId: Number(uniqueKey), studentmail: studentEmail },
+      data: { claimStatus: true },
+    });
   }
 }

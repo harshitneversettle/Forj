@@ -17,6 +17,7 @@ import Claim from "./components/Claim";
 import Verify from "./components/Verify";
 import Demo from "./components/Demo";
 import Navbar from "./components/Navbar";
+import AdminDashboard from "./components/AdminDashboard";
 if (typeof window !== "undefined") {
   window.Buffer = window.Buffer || Buffer;
 }
@@ -42,6 +43,7 @@ function App() {
                   <Route path="/claim" element={<Claim />} />
                   <Route path="/claim/:issuer/:uniqueKey" element={<Claim />} />
                   <Route path="/verify" element={<Verify />} />
+                  <Route path="/admin-dashboard" element={<AdminDashboard />} />
                   <Route
                     path="/verify/:issuer/:uniqueKey/:studentEmail"
                     element={<Verify />}

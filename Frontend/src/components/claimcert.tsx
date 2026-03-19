@@ -79,7 +79,6 @@ export default function ClaimCert({
         uniqueKey,
         userEmail: user.email,
       };
-
       const response = await axios.post(`${backend_url}/api/claim`, data);
       console.log(typeof response.data.verifyUrl);
       if (String(response.data) == "error") {
@@ -94,7 +93,6 @@ export default function ClaimCert({
         templateUri: response.data.templateUri,
         verifyUrl: response.data.verifyUrl,
       });
-
       handlenoti(
         "Certificate claimed successfully!",
         "Your certificate is ready",
@@ -147,25 +145,17 @@ export default function ClaimCert({
           </div>
         ) : (
           <div className="space-y-6 animate-fade-in">
-            <div className="flex items-center gap-4 p-5 rounded-xl border border-white/10 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-[1.02]">
+            <div className="flex items-center gap-4 p-5 rounded-xl border border-white/10 shadow-lg hover:shadow-xl transition-all duration-300 ">
               <div className="relative">
                 <img
                   src={user.picture}
                   alt={user.name}
                   className="w-16 h-16 rounded-full border-2 border-blue-400/50 shadow-lg"
                 />
-                <div className="absolute -bottom-1 -right-1 w-5 h-5 bg-green-500 rounded-full border-2 border-gray-900"></div>
               </div>
               <div className="flex-1">
                 <p className="text-white font-bold text-lg">{user.name}</p>
                 <p className="text-gray-400 text-sm">{user.email}</p>
-                {user.email_verified && (
-                  <div className="flex items-center gap-1 mt-1">
-                    <span className="text-green-400 text-xs font-semibold">
-                      Verified
-                    </span>
-                  </div>
-                )}
               </div>
               <button
                 onClick={handleLogout}
