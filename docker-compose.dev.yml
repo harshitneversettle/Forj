@@ -17,6 +17,7 @@ services:
     container_name: forj_backend
     environment:
       - DATABASE_URL=postgres://forj_harshit:forj_1234@forj_postgres:5432/forj_db_dev
+      # format of url : postgres://{POSTGRES_USER}:{POSTGRES_PASSWORD}@{container_name_of_database}:5432/{POSTGRES_DB}
     ports:
       - 3001:3001
     depends_on:
