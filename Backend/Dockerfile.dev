@@ -15,5 +15,5 @@ RUN pnpx prisma generate
 
 EXPOSE 3001
 
-CMD ["pnpm" , "run" , "start:migrate"]
+CMD ["pnpm" , "run" , "dev:migrate"]
 ## this will migrate , build the ts file and run the dist/js file 

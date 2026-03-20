@@ -2,7 +2,7 @@ version: "3.8"
 services:
   database:
     image: postgres
-    container_name: forj_postgres
+    container_name: forj_postgres_dev
     ports:
       - 5432:5432
     volumes:
@@ -14,9 +14,9 @@ services:
 
   backend:
     image: harshitneversettle/forj-backend:dev
-    container_name: forj_backend
+    container_name: forj_backend_dev
     environment:
-      - DATABASE_URL=postgres://forj_harshit:forj_1234@forj_postgres:5432/forj_db_dev
+      - DATABASE_URL=postgres://forj_harshit:forj_1234@forj_postgres_dev:5432/forj_db_dev
       # format of url : postgres://{POSTGRES_USER}:{POSTGRES_PASSWORD}@{container_name_of_database}:5432/{POSTGRES_DB}
     ports:
       - 3001:3001
@@ -26,7 +26,7 @@ services:
 
   frontend:
     image: harshitneversettle/forj-frontend:dev
-    container_name: forj_frontend
+    container_name: forj_frontend_dev
     ports:
       - 5173:5173
     depends_on:
