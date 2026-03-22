@@ -6,13 +6,13 @@
     "build": "tsc -b",
     "start": "node dist/server.js",
     "dev:migrate": "pnpx prisma migrate deploy && tsc -b && node src/server.js",
-    "start:migrate": "pnpx prisma migrate deploy && tsc-b && node dist/server.js"
+    "start:migrate": "pnpx prisma migrate deploy && node dist/server.js"
   },
   "dependencies": {
     "@coral-xyz/anchor": "^0.32.1",
     "@pinata/sdk": "^2.1.0",
     "@prisma/adapter-pg": "^7.5.0",
-    "@prisma/client": "^7.5.0",
+    "@prisma/client": "^7.5.0",      
     "@solana/web3.js": "^1.98.4",
     "@types/nodemailer": "^7.0.11",
     "axios": "^1.13.2",
