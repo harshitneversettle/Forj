@@ -3,8 +3,10 @@
   "version": "1.0.0",
   "scripts": {
     "dev": "nodemon src/server.ts",
-    "build": "tsc",
-    "start": "node dist/server.js"
+    "build": "tsc -b",
+    "start": "node dist/server.js",
+    "dev:migrate": "pnpx prisma migrate deploy && tsc -b && node src/server.js",
+    "start:migrate": "pnpx prisma migrate deploy && tsc-b && node dist/server.js"
   },
   "dependencies": {
     "@coral-xyz/anchor": "^0.32.1",

@@ -1,0 +1,8 @@
+services:
+  backend:
+    container_name: forj_backend_prod
+    image: harshitneversettle/forj-backend:prod
+    ports:
+      - 3001:3001
+    env_file: ./Backend/.env
+    restart: always
