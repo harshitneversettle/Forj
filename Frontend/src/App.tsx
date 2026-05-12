@@ -48,7 +48,7 @@ function App() {
                     path="/verify/:issuer/:uniqueKey/:studentEmail"
                     element={<Verify />}
                   />
-                  <Route element={<Demo />} />
+                  <Route path="/demo" element={<Demo />} />
                 </Routes>
               </div>
             </div>

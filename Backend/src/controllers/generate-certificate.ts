@@ -14,7 +14,6 @@ export async function generate_certificate(req: any, res: any) {
   Object.entries(data).forEach(([key, val]) => {
     try {
       form.getTextField(key).setText(val as string);
-
       console.log(key);
       console.log(val);
     } catch {
