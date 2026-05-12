@@ -2,7 +2,7 @@ ProgramId : EtaqN8Lz1J1zdoJRXapCNudMDKaWyxcGtapi6eWjnGfC
 
 Live on : [forj.harshityad4v.in](forj.harshityad4v.in)
 
-Demo : <p align="center">https://www.loom.com/share/736ca410e645429c96b00dfad82978f9
+Demo : <p align="center">[https://www.loom.com/share/736ca410e645429c96b00dfad82978f9](https://www.loom.com/share/75243a58ff83437e917b3c3a0a3feddd)
 </p>
 
 # Forj: Blockchain Certificate Verification System
@@ -78,6 +78,18 @@ pub struct Event {
 ```
 
 ## Installation and Setup
+
+### For Pro devs 
+-> Prerequisites
+1. Docker should be installed
+```
+git clone https://github.com/harshitneversettle/Forj.git
+cd Forj
+npm install
+
+docker compose -f docker-compose.dev.yml up 
+```
+   
 -> Prerequisites
 1. Node.js 18+
 2. Rust 1.75+ & Solana CLI 1.18+
