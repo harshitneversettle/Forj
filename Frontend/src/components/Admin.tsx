@@ -39,7 +39,6 @@ export default function Admin() {
   const eventNameRef = useRef<HTMLInputElement>(null);
   const eventIdRef = useRef<HTMLInputElement>(null);
   const emailDomainRef = useRef<HTMLInputElement>(null);
-  const [loading, setLoading] = useState(false);
   const [result, setResult] = useState<any>(null);
   const { balance } = useWalletBalance(connection, publicKey);
   const uniqueKeyRef = useRef<number>(null);
@@ -134,7 +133,6 @@ export default function Admin() {
       );
       return;
     }
-    setLoading(true);
     setResult(null);
     try {
       if (!eventIdRef.current) return;
